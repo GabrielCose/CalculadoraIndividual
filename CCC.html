@@ -1,0 +1,193 @@
+
+<!DOCTYPE html>
+<!-- saved from url=(0066)file:///C:/Users/Marise%20Miranda/Downloads/Marises%20Machine.html -->
+<html lang="en">
+
+<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>CCC</title>
+        <style>
+                @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap');
+
+
+                body {
+
+                        background-image: url(https://images.unsplash.com/photo-1461749280684-dccba630e2f6?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fGNvZGluZ3xlbnwwfHwwfHx8MA%3D%3D);
+                        background-size: cover;
+                        /*cobrir a tela*/
+                        background-repeat: no-repeat;
+                        /* background-position: center; */
+                        /*Nao repetir*/
+                        font-family: 'Roboto+Slab';
+
+                        color: white;
+
+
+                }
+
+                .botao {
+
+                        font-size: 1.2em;
+                        font-weight: bold;
+                }
+
+                input {
+                        border-radius: 18px;
+                        padding: 10px 40px;
+                        border: 10px;
+                        text-align: center;
+                        font-size: 1.2em;
+                        font-weight: bold;
+                        background-color:white ;
+                        
+                        
+                }
+
+                button {
+                        font-size: 1.2em;
+                        font-weight: bold;
+                        border-radius: 18px;
+                        padding: 5px 40px;
+                        border: 10px;
+                        margin-left: 5px;
+                        margin-right: 5px;
+                }
+
+                button:hover {
+                        cursor: pointer;
+                        background-color: rgb(246, 255, 0);
+                        color: black;
+                }
+
+                .selected {
+                        background-color: rgb(246, 255, 0);
+                        /* Cor para o botão selecionado */
+                        color: black;
+                        /* Cor do texto, se necessário */
+                }
+                
+
+                center {
+                        background: rgba(0, 0, 0, 0.8);
+                        border-radius: 18px;
+                        padding: 10px;
+                        border: 15px;
+                        width: 700px;
+                        /* margin: 250px 324px 200px 610px; */
+                        margin-left: 610px;
+                        margin-top: 250px;
+                        
+                }
+        </style>
+
+</head>
+
+<body bgcolor="#A020F0">
+
+
+        <center>
+                <h1 id="title">COSE CONVERTION CALCULATOR <br>(CCC) <br></h1>
+                <div id="botao">
+                        <button class="botao" value="decimal">Decimal</button>
+                        <button class="botao" value="octal">Octal</button>
+                        <button class="botao" value="hexadecimal">Hexadecimal</button>
+                        <button class="botao" value="binary">Binário</button>
+                </div>
+
+                <br><br>
+                <input id="input_valor" type="text" placeholder="Digite o valor">
+                <!-- <input id="input_valor_binario" type="text" placeholder="Digite o valor em binario">
+                <input id="input_valor_octal" type="text" placeholder="Digite o valor em octal">
+                <input id="input_valor_hexadecimal" type="text" placeholder="Digite o valor hexadecimal"> -->
+
+                <br><br><br>
+                <button onclick="convert()">Converter</button>
+                <br><br><br>
+                <div id="div_mensagem"></div>
+        </center>
+
+
+
+
+        <script>
+
+                let baseEscolhida = null;
+
+                document.querySelectorAll('.botao').forEach(button => {
+                        button.addEventListener('click', () => {
+                                baseEscolhida = button.value;
+                                document.querySelectorAll('.botao').forEach(btn => btn.classList.remove('selected'));
+                                button.classList.add('selected');
+                        });
+                });
+
+                function convert() {
+                        var inputField = document.getElementById("input_valor");
+                        var decimalValue = 0;
+
+                        if (baseEscolhida == "decimal") {
+                                decimalValue = Number(inputField.value);
+                        } else if (baseEscolhida == "octal") {
+                                decimalValue = parseInt(inputField.value, 8);
+                        } else if (baseEscolhida == "hexadecimal") {
+                                decimalValue = parseInt(inputField.value, 16);
+                        } else if (baseEscolhida == "binary") {
+                                decimalValue = parseInt(inputField.value, 2);
+                        }
+
+                        if (decimalValue) {
+                                let octal = decimalValue.toString(8);
+                                let binary = decimalValue.toString(2);
+                                let hexadecimal = decimalValue.toString(16);
+
+                                if (baseEscolhida == "decimal") {
+                                        document.getElementById("div_mensagem").innerHTML = `
+        <h3>
+        Octal: ${octal}<br>
+        Binário: ${binary}<br>
+        Hexadecimal: ${hexadecimal}<br><br>
+        
+        </h3> 
+      `;
+                                } else if (baseEscolhida == "octal") {
+                                        document.getElementById("div_mensagem").innerHTML = `
+        <h3>
+        Decimal: ${decimalValue}<br>
+        Binário: ${binary}<br>
+        Hexadecimal: ${hexadecimal}<br><br>
+        
+        </h3> 
+      `;
+                                } else if (baseEscolhida == "hexadecimal") {
+                                        document.getElementById("div_mensagem").innerHTML = `
+        <h3>
+        Decimal: ${decimalValue}<br>
+        Octal: ${octal}<br>
+        Binário: ${binary}<br><br>
+        
+        </h3> 
+      `;
+                                } else if (baseEscolhida == "binary") {
+                                        document.getElementById("div_mensagem").innerHTML = `
+        <h3>
+                Decimal: ${decimalValue}<br>
+        Octal: ${octal}<br>
+        Hexadecimal: ${hexadecimal}<br><br>
+        
+        </h3> 
+      `;
+                                }
+                        } else {
+                                alert("Insira um valor válido");
+                        }
+                }
+        </script>
+</body>
+
+</html>
+
+
+
+
